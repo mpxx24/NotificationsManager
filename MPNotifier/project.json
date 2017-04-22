@@ -1,6 +1,8 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
+    "HtmlAgilityPack": "1.4.9.5",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Microsoft.Toolkit.Uwp.Notifications.JavaScript": "1.2.0"
   },
   "frameworks": {
     "uap10.0": {}

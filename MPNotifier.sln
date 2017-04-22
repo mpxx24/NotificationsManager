@@ -5,16 +5,23 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPNotifier", "MPNotifier\MPNotifier.csproj", "{CA8F4876-B8D7-456A-9B22-3651EC5B4571}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MpNotifier.App", "MpNotifier.App", "{16324D90-012D-417C-94F9-7AEBF8FB3998}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobOffersProvider", "JobOffersProvider\JobOffersProvider.csproj", "{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Debug|ARM.ActiveCfg = Debug|ARM
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Debug|ARM.Build.0 = Debug|ARM
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -24,6 +31,7 @@ Global
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Debug|x86.ActiveCfg = Debug|x86
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Debug|x86.Build.0 = Debug|x86
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Debug|x86.Deploy.0 = Debug|x86
+		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Release|Any CPU.ActiveCfg = Release|x86
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Release|ARM.ActiveCfg = Release|ARM
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Release|ARM.Build.0 = Release|ARM
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Release|ARM.Deploy.0 = Release|ARM
@@ -33,8 +41,28 @@ Global
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Release|x86.ActiveCfg = Release|x86
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Release|x86.Build.0 = Release|x86
 		{CA8F4876-B8D7-456A-9B22-3651EC5B4571}.Release|x86.Deploy.0 = Release|x86
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Debug|ARM.Build.0 = Debug|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Debug|x64.Build.0 = Debug|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Debug|x86.Build.0 = Debug|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Release|ARM.ActiveCfg = Release|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Release|ARM.Build.0 = Release|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Release|x64.ActiveCfg = Release|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Release|x64.Build.0 = Release|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Release|x86.ActiveCfg = Release|Any CPU
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA8F4876-B8D7-456A-9B22-3651EC5B4571} = {16324D90-012D-417C-94F9-7AEBF8FB3998}
+		{598CD267-F6B3-4C91-9BE7-87D1DF3D5EAB} = {16324D90-012D-417C-94F9-7AEBF8FB3998}
 	EndGlobalSection
 EndGlobal

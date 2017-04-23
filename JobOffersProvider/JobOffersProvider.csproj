@@ -43,6 +43,8 @@
     <Compile Include="Common\Models\JobModel.cs" />
     <Compile Include="Common\Models\JobWebsiteModel.cs" />
     <Compile Include="Common\PracujPlWebsiteProvider.cs" />
+    <Compile Include="Common\TrojmiastoPlWebsiteProvider.cs" />
+    <Compile Include="Exceptions\HtmlElementNotFountException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

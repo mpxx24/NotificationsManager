@@ -14,5 +14,7 @@
         public static string DataOriginal => "data-original";
         public static string Address => "href";
         public static string Link => "a";
+        public static string Div => "div";
+        public static string Id => "id";
     }
 }

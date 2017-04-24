@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Common\HtmlElementsHelper.cs" />
     <Compile Include="Common\IJobWebsiteTask.cs" />
+    <Compile Include="Common\JobWebsiteTaskProviderType.cs" />
     <Compile Include="Common\Models\JobModel.cs" />
     <Compile Include="Common\Models\JobWebsiteModel.cs" />
     <Compile Include="Common\PracujPlWebsiteProvider.cs" />

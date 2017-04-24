@@ -10,15 +10,18 @@ namespace MPNotifier {
         public MainPage() {
             this.InitializeComponent();
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterType<PracujPlWebsiteProvider>().As<IJobWebsiteTask>();
+            containerBuilder.RegisterType<PracujPlWebsiteProvider>().Keyed<IJobWebsiteTask>(JobWebsiteTaskProviderType.PracujPl);
+            containerBuilder.RegisterType<TrojmiastoPlWebsiteProvider>().Keyed<IJobWebsiteTask>(JobWebsiteTaskProviderType.TrojmiastoPl);
             containerBuilder.RegisterType<NotificationsLoader>().As<INotificationsLoader>();
 
             container = containerBuilder.Build();
         }
 
         private void Button_OnClick(object sender, RoutedEventArgs e) {
-            var notificationsLoader = container.Resolve<INotificationsLoader>();
-            notificationsLoader.ShowToastNotification();
+            using (var scope = container.BeginLifetimeScope()) {
+                var notificationsLoader = scope.Resolve<INotificationsLoader>();
+                notificationsLoader.ShowToastNotification();
+            }
         }
     }
 }

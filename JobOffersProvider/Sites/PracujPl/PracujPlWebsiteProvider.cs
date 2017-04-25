@@ -6,9 +6,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using JobOffersProvider.Common;
 using JobOffersProvider.Common.Models;
 
-namespace JobOffersProvider.Common {
+namespace JobOffersProvider.Sites.PracujPl {
     public class PracujPlWebsiteProvider : IJobWebsiteTask {
         private static string pracujPlAddress => "https://www.pracuj.pl/";
         private static string searchUrl => $"{pracujPlAddress}/praca/.NET;kw/Gda%C5%84sk-x44-%20Gdynia-x44-%20Sopot;wp";

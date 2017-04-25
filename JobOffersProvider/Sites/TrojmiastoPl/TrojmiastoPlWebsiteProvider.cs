@@ -6,9 +6,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using JobOffersProvider.Common;
 using JobOffersProvider.Common.Models;
 
-namespace JobOffersProvider.Common {
+namespace JobOffersProvider.Sites.TrojmiastoPl {
     public class TrojmiastoPlWebsiteProvider : IJobWebsiteTask {
         private static string searchUrl => $"http://ogloszenia.trojmiasto.pl/praca/s,.net,slb,4,o0,1.html";
         private static string defaultLogoAddress => "https://cdn2.iconfinder.com/data/icons/line-weather/130/No_Data-128.png";

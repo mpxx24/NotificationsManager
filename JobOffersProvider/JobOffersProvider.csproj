@@ -39,16 +39,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\HtmlElementsHelper.cs" />
+    <Compile Include="Common\IJobComparer.cs" />
     <Compile Include="Common\IJobWebsiteTask.cs" />
+    <Compile Include="Common\IOffersService.cs" />
+    <Compile Include="Common\JobOffersComparer.cs" />
     <Compile Include="Common\JobWebsiteTaskProviderType.cs" />
     <Compile Include="Common\Models\JobModel.cs" />
     <Compile Include="Common\Models\JobWebsiteModel.cs" />
-    <Compile Include="Common\PracujPlWebsiteProvider.cs" />
-    <Compile Include="Common\TrojmiastoPlWebsiteProvider.cs" />
+    <Compile Include="Sites\PracujPl\PracujPlOffersService.cs" />
+    <Compile Include="Sites\PracujPl\PracujPlWebsiteProvider.cs" />
+    <Compile Include="Sites\TrojmiastoPl\TrojmiastoPlOffersService.cs" />
+    <Compile Include="Sites\TrojmiastoPl\TrojmiastoPlWebsiteProvider.cs" />
     <Compile Include="Exceptions\HtmlElementNotFountException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\..\..\.nuget\packages\Autofac\4.5.0\lib\netstandard1.1\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Drawing.dll</HintPath>
     </Reference>

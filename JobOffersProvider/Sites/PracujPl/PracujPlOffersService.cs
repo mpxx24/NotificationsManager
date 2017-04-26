@@ -16,9 +16,9 @@ namespace JobOffersProvider.Sites.PracujPl {
             this.jobWebsiteTask = this.iindex[JobWebsiteTaskProviderType.PracujPl];
         }
 
-        public async Task<IEnumerable<JobModel>> GetOffers() {
-            var jobOffers = await this.jobWebsiteTask.GetJobOffers();
-            return jobOffers.ToList();
+        public IEnumerable<JobModel> GetOffers() {
+            var jobOffers = this.jobWebsiteTask.GetJobOffers();
+            return jobOffers.Result.ToList();
         }
     }
 }

@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Notifications;
 using Autofac.Features.Indexed;
 using JobOffersProvider.Common;
+using JobOffersProvider.Common.Models;
 
 namespace MPNotifier {
     public class NotificationsLoader : INotificationsLoader {
@@ -17,26 +19,38 @@ namespace MPNotifier {
             this.trojmiastPlOffersService = this.iindex[JobWebsiteTaskProviderType.TrojmiastoPl];
         }
 
-        public async void ShowToastNotification() {
-            var pracujPlJobOffers = await this.pracujPlOffersService.GetOffers();
-            var trojmiastoPlJobOffers = await this.trojmiastPlOffersService.GetOffers();
+        public void ShowToastNotification() {
+            var jobOffers = this.GetJobOffers();
 
-            var pracujPlJobModels = pracujPlJobOffers.ToList();
-            var trojmiastoPlJobModels = trojmiastoPlJobOffers.ToList();
-
-            for (var i = 0; i < 3; i++) {
-                var xml = Notifications.GetNotificationContent(pracujPlJobModels[i].Company, pracujPlJobModels[i].Title, pracujPlJobModels[i].Logo, pracujPlJobModels[i].OfferAddress);
+            for (var i = 0; i < 10; i++) {
+                var xml = Notifications.GetNotificationContent(jobOffers[i].Company, jobOffers[i].Title, jobOffers[i].Logo, jobOffers[i].OfferAddress);
                 var toast = new ToastNotification(xml);
 
                 ToastNotificationManager.CreateToastNotifier().Show(toast);
             }
+        }
 
-            for (var i = 0; i < 3; i++) {
-                var xml = Notifications.GetNotificationContent(trojmiastoPlJobModels[i].Company, trojmiastoPlJobModels[i].Title, trojmiastoPlJobModels[i].Logo, trojmiastoPlJobModels[i].OfferAddress);
-                var toast = new ToastNotification(xml);
+        private List<JobModel> GetJobOffers() {
+            var jobOffers = new List<JobModel>();
 
-                ToastNotificationManager.CreateToastNotifier().Show(toast);
-            }
+            var pracujPlJobOffers = this.pracujPlOffersService.GetOffers();
+            var trojmiastoPlJobOffers = this.trojmiastPlOffersService.GetOffers();
+            jobOffers.AddRange(pracujPlJobOffers);
+            jobOffers.AddRange(trojmiastoPlJobOffers);
+
+            var preparedOffers = this.PrepareJobOffers(jobOffers);
+
+            return preparedOffers.ToList();
+        }
+
+        private IEnumerable<JobModel> PrepareJobOffers(IEnumerable<JobModel> jobModels) {
+            var jobList = jobModels.ToList();
+
+            var distinctOffers = jobList.GroupBy(x => new {x.Company, x.Title}).Select(y => y.First()).ToList();
+
+            var sortedfOffers = distinctOffers.OrderByDescending(x => x.Added).ToList();
+
+            return sortedfOffers;
         }
     }
 }

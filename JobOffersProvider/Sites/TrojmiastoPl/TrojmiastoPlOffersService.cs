@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Autofac.Features.Indexed;
 using JobOffersProvider.Common;
 using JobOffersProvider.Common.Models;
@@ -16,9 +15,9 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
             this.jobWebsiteTask = this.iindex[JobWebsiteTaskProviderType.TrojmiastoPl];
         }
 
-        public async Task<IEnumerable<JobModel>> GetOffers() {
-            var jobOffers = await this.jobWebsiteTask.GetJobOffers();
-            return jobOffers.ToList();
+        public IEnumerable<JobModel> GetOffers() {
+            var jobOffers = this.jobWebsiteTask.GetJobOffers();
+            return jobOffers.Result.ToList();
         }
     }
 }

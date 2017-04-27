@@ -6,13 +6,13 @@ using JobOffersProvider.Common.Models;
 
 namespace JobOffersProvider.Sites.TrojmiastoPl {
     public class TrojmiastoPlOffersService : IOffersService {
-        private readonly IIndex<JobWebsiteTaskProviderType, IJobWebsiteTask> iindex;
+        private readonly IIndex<JobWebsiteTaskProviderType, IJobWebsiteTask> iJobWebsiteTaskIndex;
 
         private readonly IJobWebsiteTask jobWebsiteTask;
 
         public TrojmiastoPlOffersService(IIndex<JobWebsiteTaskProviderType, IJobWebsiteTask> index) {
-            this.iindex = index;
-            this.jobWebsiteTask = this.iindex[JobWebsiteTaskProviderType.TrojmiastoPl];
+            this.iJobWebsiteTaskIndex = index;
+            this.jobWebsiteTask = this.iJobWebsiteTaskIndex[JobWebsiteTaskProviderType.TrojmiastoPl];
         }
 
         public IEnumerable<JobModel> GetOffers() {

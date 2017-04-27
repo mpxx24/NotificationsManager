@@ -33,8 +33,13 @@ namespace JobOffersProvider.Sites.PracujPl {
                 .Where(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("o-list_item "));
 
             foreach (var li in offers) {
-                var offerLink = PrepareOfferLink(li.Descendants(HtmlElementsHelper.HeaderTwo)?.First()?
-                    .Descendants(HtmlElementsHelper.Link)?.First()?.Attributes[HtmlElementsHelper.Address].Value);
+                var offerLink = PrepareOfferLink(li.Descendants(HtmlElementsHelper.HeaderTwo)
+                    ?.First()
+                    ?
+                    .Descendants(HtmlElementsHelper.Link)
+                    ?.First()
+                    ?.Attributes[HtmlElementsHelper.Address]
+                    .Value);
 
                 var text = PrepareOfferName(li.Descendants(HtmlElementsHelper.HeaderTwo)?.First()?.InnerText);
 
@@ -54,8 +59,7 @@ namespace JobOffersProvider.Sites.PracujPl {
                     .First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("o-list_item_desc_date"))
                     .InnerText);
 
-                result.Add(new JobModel
-                    {
+                result.Add(new JobModel {
                         Title = text,
                         Company = companyName,
                         Added = dateAdded,
@@ -69,7 +73,7 @@ namespace JobOffersProvider.Sites.PracujPl {
             return result;
         }
 
-        private static string  PrepareOfferLink(string link) {
+        private static string PrepareOfferLink(string link) {
             return $"{pracujPlAddress}{link}";
         }
 
@@ -77,8 +81,11 @@ namespace JobOffersProvider.Sites.PracujPl {
             var cities = new List<string>();
             var data = city.Split(',');
 
-            if (data.Length == 2) cities.Add(data[0]);
-            else if (data.Length > 2) cities.AddRange(data.Take(data.Length - 1));
+            if (data.Length == 2) {
+                cities.Add(data[0]);
+            } else if (data.Length > 2) {
+                cities.AddRange(data.Take(data.Length - 1));
+            }
 
             return cities.Select(c => c.Trim()).ToList();
         }

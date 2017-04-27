@@ -22,7 +22,7 @@ namespace MPNotifier {
         public void ShowToastNotification() {
             var jobOffers = this.GetJobOffers();
 
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
                 var xml = Notifications.GetNotificationContent(jobOffers[i].Company, jobOffers[i].Title, jobOffers[i].Logo, jobOffers[i].OfferAddress);
                 var toast = new ToastNotification(xml);
 

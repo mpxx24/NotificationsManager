@@ -44,6 +44,9 @@
     <Compile Include="Common\JobWebsiteTaskProviderType.cs" />
     <Compile Include="Common\Models\JobModel.cs" />
     <Compile Include="Common\Models\JobWebsiteModel.cs" />
+    <Compile Include="Core\IRepository.cs" />
+    <Compile Include="Core\OffersContainer.cs" />
+    <Compile Include="Core\JobModelRepository.cs" />
     <Compile Include="Sites\PracujPl\PracujPlOffersService.cs" />
     <Compile Include="Sites\PracujPl\PracujPlWebsiteProvider.cs" />
     <Compile Include="Sites\TrojmiastoPl\TrojmiastoPlOffersService.cs" />
@@ -60,6 +63,12 @@
     </Reference>
     <Reference Include="System.Net.Requests">
       <HintPath>..\..\..\..\..\.nuget\packages\System.Net.Requests\4.0.11\ref\netcore50\System.Net.Requests.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Windows.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Windows.Foundation.UniversalApiContract">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\Windows.Foundation.UniversalApiContract\3.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

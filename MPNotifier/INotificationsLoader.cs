@@ -1,5 +1,5 @@
 ﻿namespace MPNotifier {
     public interface INotificationsLoader {
-        void ShowToastNotification();
+        void ShowToastNotification(int numberOfOffers);
     }
 }

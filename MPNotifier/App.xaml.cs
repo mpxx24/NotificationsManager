@@ -4,6 +4,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using MPNotifier.Views;
 
 namespace MPNotifier {
     /// <summary>
@@ -45,7 +46,7 @@ namespace MPNotifier {
 
             if (e.PrelaunchActivated == false) {
                 if (rootFrame.Content == null)
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(Settings), e.Arguments);
                 // Upewnij się, ze bieżące okno jest aktywne
                 Window.Current.Activate();
             }

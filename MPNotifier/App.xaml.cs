@@ -4,6 +4,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Autofac;
+using MPNotifier.Core;
 using MPNotifier.Views;
 
 namespace MPNotifier {
@@ -16,6 +18,7 @@ namespace MPNotifier {
         ///     wykonywanego i jest logicznym odpowiednikiem metod main() lub WinMain().
         /// </summary>
         public App() {
+            IoC.Initialize(new Module[] { new CommonModule()});
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
         }

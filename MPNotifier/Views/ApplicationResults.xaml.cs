@@ -1,53 +1,47 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using JobOffersProvider.Common.Models;
 using JobOffersProvider.Core;
+using MPNotifier.Core;
+using MPNotifier.Models.ViewModels;
 using MPNotifier.Services.Contracts;
 
 namespace MPNotifier.Views {
     public sealed partial class ApplicationResults : Page {
+        public ApplicationResultsViewModel ViewModel { get; set; }
         private static Timer timer;
 
-        private readonly IApplicationService applicationService;
-
-        private readonly INotificationsLoader notificationsLoader;
-
-        private readonly IRepository<JobModel> repository;
-
         private ObservableCollection<JobModel> offers;
-
+        
         public ApplicationResults() {
             this.InitializeComponent();
-        }
-
-        public ApplicationResults(IRepository<JobModel> repository, IApplicationService applicationService, INotificationsLoader notificationsLoader) {
-            this.repository = repository;
-            this.applicationService = applicationService;
-            this.notificationsLoader = notificationsLoader;
+            this.PrepareApplicationData();
             this.InitializeControls();
+            this.ViewModel = new ApplicationResultsViewModel();
         }
 
         private void StartApplicationsLoop() {
-            this.PrepareApplicationData();
             timer = new Timer(x => this.ShowNotifications(), null, 1000 * 1, Timeout.Infinite);
         }
 
         private void PrepareApplicationData() {
-            this.applicationService.PrepareApplicationData();
+            IoC.Resolve<IApplicationService>().PrepareApplicationData();
         }
 
         private void ShowNotifications() {
-            this.notificationsLoader.ShowToastNotification(5);
+            IoC.Resolve<INotificationsLoader>().ShowToastNotification(5);
 
             timer.Change(1000 * 60 * 30, Timeout.Infinite);
         }
 
         private void InitializeControls() {
-            var allOffers = this.repository.GetAll();
+            var allOffers = IoC.Resolve<IRepository<JobModel>>().GetAll();
             this.offers = new ObservableCollection<JobModel>(allOffers);
+            this.ResultsListView.ItemsSource = this.offers;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {

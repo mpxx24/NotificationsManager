@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Autofac.Features.Indexed;
 using JobOffersProvider.Common;
 using JobOffersProvider.Common.Models;
@@ -20,8 +21,8 @@ namespace MPNotifier.Services {
             this.trojmiastPlOffersService = this.iindex[JobWebsiteTaskProviderType.TrojmiastoPl];
         }
 
-        public void PrepareApplicationData() {
-            var offers = this.GetJobOffers();
+        public async void PrepareApplicationData() {
+            var offers = await Task.Run(() => this.GetJobOffers());
             this.InitlializePseudoRepositoryContainer(offers);
         }
 

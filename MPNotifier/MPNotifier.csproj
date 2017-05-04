@@ -101,7 +101,6 @@
     <Compile Include="Core\IoC.cs" />
     <Compile Include="INotificationsLoader.cs" />
     <Compile Include="Models\ViewModels\ApplicationResultsViewModel.cs" />
-    <Compile Include="Models\ViewModels\ApplicationResultsViewModelLocator.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\Contracts\IApplicationService.cs" />
     <Compile Include="Views\Settings.xaml.cs">

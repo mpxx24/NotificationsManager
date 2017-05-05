@@ -21,8 +21,8 @@ namespace MPNotifier.Services {
             this.trojmiastPlOffersService = this.iindex[JobWebsiteTaskProviderType.TrojmiastoPl];
         }
 
-        public async void PrepareApplicationData() {
-            var offers = await Task.Run(() => this.GetJobOffers());
+        public void PrepareApplicationData() {
+            var offers = this.GetJobOffers();
             this.InitlializePseudoRepositoryContainer(offers);
         }
 

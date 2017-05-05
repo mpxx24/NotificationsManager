@@ -101,7 +101,10 @@
     <Compile Include="Core\IoC.cs" />
     <Compile Include="INotificationsLoader.cs" />
     <Compile Include="Models\ViewModels\ApplicationResultsViewModel.cs" />
+    <Compile Include="Models\ViewModels\JobOfferViewModel.cs" />
+    <Compile Include="Services\ApplicationResultsService.cs" />
     <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\Contracts\IApplicationResultsService.cs" />
     <Compile Include="Services\Contracts\IApplicationService.cs" />
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>

@@ -27,7 +27,18 @@
 
         <SplitView.Content>
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,-0,0">
-                <ListView x:Name="ResultsListView" ItemsSource="{x:Bind Path=ViewModel.Offers, Mode=OneWay}" Grid.RowSpan="2"></ListView>
+                <ListView x:Name="ResultsListView" ItemsSource="{x:Bind Path=ViewModel.Offers, Mode=OneWay}" Grid.RowSpan="5">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Logo}"></Image>
+                                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </SplitView.Content>
     </SplitView>

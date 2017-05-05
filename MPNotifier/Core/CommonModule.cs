@@ -17,6 +17,7 @@ namespace MPNotifier.Core {
             builder.RegisterType<ApplicationService>().As<IApplicationService>();
             builder.RegisterType<JobModelRepository>().As<IRepository<JobModel>>();
             builder.RegisterType<NotificationsLoader>().As<INotificationsLoader>();
+            builder.RegisterType<ApplicationResultsService>().As<IApplicationResultsService>();
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -12,16 +13,21 @@ using MPNotifier.Services.Contracts;
 
 namespace MPNotifier.Views {
     public sealed partial class ApplicationResults : Page {
-        public ApplicationResultsViewModel ViewModel { get; set; }
         private static Timer timer;
 
         private ObservableCollection<JobModel> offers;
-        
+
+        public ApplicationResultsViewModel ViewModel { get; set; }
+
         public ApplicationResults() {
             this.InitializeComponent();
+            this.ViewModel = new ApplicationResultsViewModel();
+
+            this.InitializeApplication();
+        }
+        private void InitializeApplication() {
             this.PrepareApplicationData();
             this.InitializeControls();
-            this.ViewModel = new ApplicationResultsViewModel();
         }
 
         private void StartApplicationsLoop() {
@@ -29,7 +35,11 @@ namespace MPNotifier.Views {
         }
 
         private void PrepareApplicationData() {
-            IoC.Resolve<IApplicationService>().PrepareApplicationData();
+            try {
+                IoC.Resolve<IApplicationService>().PrepareApplicationData();
+            } catch (Exception ex) {
+                //TODO: logger
+            }
         }
 
         private void ShowNotifications() {
@@ -39,9 +49,8 @@ namespace MPNotifier.Views {
         }
 
         private void InitializeControls() {
-            var allOffers = IoC.Resolve<IRepository<JobModel>>().GetAll();
-            this.offers = new ObservableCollection<JobModel>(allOffers);
-            this.ResultsListView.ItemsSource = this.offers;
+            var allOffers = IoC.Resolve<IApplicationResultsService>().GetAllJobOfferViewModels();
+            this.ViewModel.Offers = new ObservableCollection<JobOfferViewModel>(allOffers);
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {

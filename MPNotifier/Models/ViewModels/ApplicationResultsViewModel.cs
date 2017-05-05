@@ -5,9 +5,9 @@ using JobOffersProvider.Common.Models;
 
 namespace MPNotifier.Models.ViewModels {
     public class ApplicationResultsViewModel : INotifyPropertyChanged {
-        private ObservableCollection<JobModel> offers;
+        private ObservableCollection<JobOfferViewModel> offers;
 
-        public ObservableCollection<JobModel> Offers {
+        public ObservableCollection<JobOfferViewModel> Offers {
             get => this.offers;
             set {
                 this.offers = value;

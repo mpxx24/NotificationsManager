@@ -19,13 +19,13 @@ namespace MPNotifier.Services {
             return JobOfferViewModel.ConvertToJobOfferViewModels(offers);
         }
 
-        public JobOfferDetailsViewModel GetOfferDetails(Guid offerId) {
+        public OfferDetailsViewModel GetOfferDetails(Guid offerId) {
             var jobModel = this.repository.Filter(x => x.Id == offerId).First();
             return this.ConvertToJofOfferDetailsViewModel(jobModel);
         }
 
-        private JobOfferDetailsViewModel ConvertToJofOfferDetailsViewModel(JobModel jobModel) {
-            return new JobOfferDetailsViewModel {
+        private OfferDetailsViewModel ConvertToJofOfferDetailsViewModel(JobModel jobModel) {
+            return new OfferDetailsViewModel() {
                 Id = jobModel.Id,
                 Company = jobModel.Company,
                 Title = jobModel.Title,

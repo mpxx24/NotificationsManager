@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using JobOffersProvider.Common.Models;
-using JobOffersProvider.Core;
 using MPNotifier.Core;
 using MPNotifier.Models.ViewModels;
 using MPNotifier.Services.Contracts;
@@ -14,8 +11,6 @@ using MPNotifier.Services.Contracts;
 namespace MPNotifier.Views {
     public sealed partial class ApplicationResults : Page {
         private static Timer timer;
-
-        private ObservableCollection<JobModel> offers;
 
         public ApplicationResultsViewModel ViewModel { get; set; }
 
@@ -62,6 +57,15 @@ namespace MPNotifier.Views {
             if (isAfterApplicationStart) {
                 this.StartApplicationsLoop();
             }
+        }
+
+        private void ResultsListView_OnItemClick(object sender, ItemClickEventArgs e) {
+            var clickedItem = (JobOfferViewModel) e.ClickedItem;
+            this.ShowOfferDetails(clickedItem.Id);
+        }
+
+        private void ShowOfferDetails(Guid clickedItemId) {
+            this.Frame.Navigate(typeof(OfferDetails), clickedItemId);
         }
     }
 }

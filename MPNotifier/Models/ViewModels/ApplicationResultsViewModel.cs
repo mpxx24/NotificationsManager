@@ -1,11 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using JobOffersProvider.Common.Models;
 
 namespace MPNotifier.Models.ViewModels {
     public class ApplicationResultsViewModel : INotifyPropertyChanged {
         private ObservableCollection<JobOfferViewModel> offers;
+
+        public int NumberOfNewOffers => this.offers.Count;
 
         public ObservableCollection<JobOfferViewModel> Offers {
             get => this.offers;

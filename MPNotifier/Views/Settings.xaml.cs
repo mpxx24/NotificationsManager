@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using Windows.Foundation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using MPNotifier.Models;
@@ -11,7 +13,13 @@ namespace MPNotifier.Views {
 
         public Settings() {
             this.InitializeComponent();
+            this.SetWindowSize();
             this.InitializeControls();
+        }
+
+        private void SetWindowSize() {
+            ApplicationView.PreferredLaunchViewSize = new Size(1000, 600);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         private void InitializeControls() {

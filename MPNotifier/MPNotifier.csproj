@@ -102,10 +102,14 @@
     <Compile Include="INotificationsLoader.cs" />
     <Compile Include="Models\ViewModels\ApplicationResultsViewModel.cs" />
     <Compile Include="Models\ViewModels\JobOfferViewModel.cs" />
+    <Compile Include="Models\ViewModels\OfferDetailsViewModel.cs" />
     <Compile Include="Services\ApplicationResultsService.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\Contracts\IApplicationResultsService.cs" />
     <Compile Include="Services\Contracts\IApplicationService.cs" />
+    <Compile Include="Views\OfferDetails.xaml.cs">
+      <DependentUpon>OfferDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -139,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\OfferDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

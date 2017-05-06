@@ -31,50 +31,49 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
                 .Descendants(HtmlElementsHelper.ListElement)
                 .Where(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("list-work-elem"));
 
-            foreach (var li in offers) { 
-                    var offerLink = li.Descendants(HtmlElementsHelper.HeaderTwo)?
-                        .First()?.Descendants(HtmlElementsHelper.Link)?
-                        .First()?.Attributes[HtmlElementsHelper.Address].Value;
+            foreach (var li in offers) {
+                var offerLink = li.Descendants(HtmlElementsHelper.HeaderTwo)?.First()?.Descendants(HtmlElementsHelper.Link)?.First()?.Attributes[HtmlElementsHelper.Address].Value;
 
-                    var text = li.Descendants(HtmlElementsHelper.HeaderTwo)?.First()?.InnerText;
+                var text = li.Descendants(HtmlElementsHelper.HeaderTwo)?.First()?.InnerText;
 
-                    var companyName = li.Descendants(HtmlElementsHelper.Paragraph).Any(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("company"))
-                        ? li.Descendants(HtmlElementsHelper.Paragraph)?.First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("company")).InnerText
-                        : "-";
+                var companyName = li.Descendants(HtmlElementsHelper.Paragraph).Any(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("company"))
+                    ? li.Descendants(HtmlElementsHelper.Paragraph)?.First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("company")).InnerText
+                    : "N/A";
 
-                    var companyLogoLink = li.Descendants(HtmlElementsHelper.Image).Any()
-                        ? li.Descendants(HtmlElementsHelper.Image)?.First()?.Attributes[HtmlElementsHelper.SourceLink]?.Value
-                        : defaultLogoAddress;
+                var companyLogoLink = li.Descendants(HtmlElementsHelper.Image).Any()
+                    ? li.Descendants(HtmlElementsHelper.Image)?.First()?.Attributes[HtmlElementsHelper.SourceLink]?.Value
+                    : defaultLogoAddress;
 
-                    var cities = (li?.Descendants(HtmlElementsHelper.ListElement)).Any(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("place"))
-                        ? PrepareCompanyCity(li?.Descendants(HtmlElementsHelper.ListElement).First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("place")).InnerText)
-                        : new List<string>();
+                var cities = (li?.Descendants(HtmlElementsHelper.ListElement)).Any(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("place"))
+                    ? PrepareCompanyCity(li?.Descendants(HtmlElementsHelper.ListElement).First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("place")).InnerText)
+                    : new List<string>();
 
-                    var dateAdded = PrepareDateAdded(li?.Descendants(HtmlElementsHelper.ListElement)
-                        .First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("added"))
-                        .InnerText);
+                var dateAdded = PrepareDateAdded(li?.Descendants(HtmlElementsHelper.ListElement)
+                    .First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("added"))
+                    .InnerText);
 
-                    result.Add(new JobModel
-                        {
-                            Title = text,
-                            Company = companyName,
-                            Added = dateAdded,
-                            Cities = cities,
-                            Logo = companyLogoLink,
-                            OfferAddress = offerLink
-                        }
-                    );
-                }
+                result.Add(new JobModel {
+                        Id = Guid.NewGuid(),
+                        Title = text,
+                        Company = companyName,
+                        Added = dateAdded,
+                        Cities = cities,
+                        Logo = companyLogoLink,
+                        OfferAddress = offerLink
+                    }
+                );
+            }
 
             return result;
         }
+
         private static DateTime PrepareDateAdded(string dateAdded) {
             var result = new DateTime();
             var test = dateAdded.Trim().Split(' ');
             var number = int.TryParse(test[1], out int delta);
 
             //oh come on
-            if (number)
+            if (number) {
                 if (test[2].Contains("godz")) {
                     result = DateTime.Now.AddHours(-delta).Date;
                 } else if (test[2].Contains("min")) {
@@ -82,6 +81,7 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
                 } else {
                     result = DateTime.Today.AddDays(-delta).Date;
                 }
+            }
 
             return result;
         }

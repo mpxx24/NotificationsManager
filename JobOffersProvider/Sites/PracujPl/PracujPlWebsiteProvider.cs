@@ -33,13 +33,7 @@ namespace JobOffersProvider.Sites.PracujPl {
                 .Where(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Contains("o-list_item "));
 
             foreach (var li in offers) {
-                var offerLink = PrepareOfferLink(li.Descendants(HtmlElementsHelper.HeaderTwo)
-                    ?.First()
-                    ?
-                    .Descendants(HtmlElementsHelper.Link)
-                    ?.First()
-                    ?.Attributes[HtmlElementsHelper.Address]
-                    .Value);
+                var offerLink = PrepareOfferLink(li.Descendants(HtmlElementsHelper.HeaderTwo)?.First()?.Descendants(HtmlElementsHelper.Link)?.First()?.Attributes[HtmlElementsHelper.Address].Value);
 
                 var text = PrepareOfferName(li.Descendants(HtmlElementsHelper.HeaderTwo)?.First()?.InnerText);
 
@@ -60,6 +54,7 @@ namespace JobOffersProvider.Sites.PracujPl {
                     .InnerText);
 
                 result.Add(new JobModel {
+                        Id = Guid.NewGuid(),
                         Title = text,
                         Company = companyName,
                         Added = dateAdded,
@@ -98,8 +93,8 @@ namespace JobOffersProvider.Sites.PracujPl {
 
         private static string PrepareOfferName(string name) {
             return name
-                .Replace(Environment.NewLine, "")
-                .Replace("!SUPER OFERTA", "")
+                .Replace(Environment.NewLine, string.Empty)
+                .Replace("!SUPER OFERTA", string.Empty)
                 .Trim();
         }
 

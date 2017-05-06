@@ -5,9 +5,9 @@
     xmlns:local="using:MPNotifier.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Width="1000" Height="800">
 
-    <SplitView x:Name="SplitView" DisplayMode="CompactInline" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150" Width="1000" Height="1000">
+    <SplitView x:Name="SplitView" DisplayMode="CompactInline" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150" Width="1000" Height="800">
         <SplitView.Pane>
             <StackPanel Background="DarkGray">
                 <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
@@ -26,13 +26,17 @@
         </SplitView.Pane>
 
         <SplitView.Content>
-            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,-0,0">
-                <ListView x:Name="ResultsListView" ItemsSource="{x:Bind Path=ViewModel.Offers, Mode=OneWay}" Grid.RowSpan="5">
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0, 0, 0, 0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Number of new offers: "></TextBlock>
+                    <TextBlock Text="{x:Bind ViewModel.NumberOfNewOffers}"></TextBlock>
+                </StackPanel>
+                <ListView x:Name="ResultsListView" ItemsSource="{x:Bind Path=ViewModel.Offers, Mode=OneWay}" Height="auto" Margin="0, 50, 0, 0" ItemClick="ResultsListView_OnItemClick" IsItemClickEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Logo}"></Image>
+                                    <Image Source="{Binding Logo}" Height="50" Width="50"></Image>
                                     <TextBlock Text="{Binding Title}" VerticalAlignment="Center"></TextBlock>
                                 </StackPanel>
                             </StackPanel>

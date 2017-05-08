@@ -16,5 +16,8 @@
         public static string Link => "a";
         public static string Div => "div";
         public static string Id => "id";
+        public static string Emphasized => "em";
+        public static string Strong => "strong";
+        public static string Text => "#text";
     }
 }

@@ -27,8 +27,15 @@
 
         <SplitView.Content>
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0, 0, 0, 0">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <HyperlinkButton Name="BackButton" Click="BackButton_OnClick">BACK</HyperlinkButton>
                     <TextBlock Text="offer details"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{x:Bind ViewModel.Logo}" Width="50" Height="50"></Image>
+                        <TextBlock Text="{x:Bind ViewModel.Company}" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                    <TextBlock Text="{x:Bind ViewModel.Title}"></TextBlock>
+                    <TextBlock Text="{x:Bind ViewModel.Description}"></TextBlock>
                 </StackPanel>
             </Grid>
         </SplitView.Content>

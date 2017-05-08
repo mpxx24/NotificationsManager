@@ -43,6 +43,7 @@
     <Compile Include="Common\IOffersService.cs" />
     <Compile Include="Common\JobWebsiteTaskProviderType.cs" />
     <Compile Include="Common\Models\JobModel.cs" />
+    <Compile Include="Common\Models\JobOfferDetailsModel.cs" />
     <Compile Include="Common\Models\JobWebsiteModel.cs" />
     <Compile Include="Core\IRepository.cs" />
     <Compile Include="Core\OffersContainer.cs" />

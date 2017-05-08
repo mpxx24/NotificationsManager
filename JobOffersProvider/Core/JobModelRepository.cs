@@ -9,7 +9,7 @@ namespace JobOffersProvider.Core {
 
         public JobModelRepository() {
             if (OffersContainer.JobOfferModels == null) {
-                throw new ArgumentNullException($"Can not instantiate repository!");
+                //TODO: log
             }
 
             this.context = OffersContainer.JobOfferModels;

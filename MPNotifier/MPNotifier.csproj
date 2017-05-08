@@ -103,10 +103,13 @@
     <Compile Include="Models\ViewModels\ApplicationResultsViewModel.cs" />
     <Compile Include="Models\ViewModels\JobOfferViewModel.cs" />
     <Compile Include="Models\ViewModels\OfferDetailsViewModel.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\ApplicationResultsService.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\Contracts\IApplicationResultsService.cs" />
     <Compile Include="Services\Contracts\IApplicationService.cs" />
+    <Compile Include="Services\Contracts\IOfferDetailsService.cs" />
+    <Compile Include="Services\OfferDetailsService.cs" />
     <Compile Include="Views\OfferDetails.xaml.cs">
       <DependentUpon>OfferDetails.xaml</DependentUpon>
     </Compile>

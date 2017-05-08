@@ -17,6 +17,6 @@ namespace JobOffersProvider.Common.Models {
 
         public string OfferAddress { get; set; }
 
-        public string Description { get; set; }
+        public JobWebsiteTaskProviderType WebsiteType { get; set; }
     }
 }

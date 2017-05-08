@@ -18,12 +18,15 @@ namespace MPNotifier.Views {
             if (e.Parameter != null) {
                 Guid offerId;
                 offerId = (Guid) e.Parameter;
-                var offerDetails = IoC.Resolve<IApplicationResultsService>().GetOfferDetails(offerId);
+                this.ViewModel = IoC.Resolve<IOfferDetailsService>().GetOfferDetails(offerId);
             }
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
             this.SplitView.IsPaneOpen = !this.SplitView.IsPaneOpen;
+        }
+        private void BackButton_OnClick(object sender, RoutedEventArgs e) {
+            this.Frame.Navigate(typeof(ApplicationResults), false);
         }
     }
 }

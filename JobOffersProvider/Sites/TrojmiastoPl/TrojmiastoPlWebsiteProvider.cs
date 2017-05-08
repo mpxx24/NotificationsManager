@@ -17,8 +17,8 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
         public async Task<IEnumerable<JobModel>> GetJobOffers() {
             var result = new List<JobModel>();
 
-            var site = new HttpClient();
-            var doc = await site.GetByteArrayAsync(searchUrl).ConfigureAwait(false);
+            var httpClient = new HttpClient();
+            var doc = await httpClient.GetByteArrayAsync(searchUrl).ConfigureAwait(false);
             var source = Encoding.GetEncoding("utf-8").GetString(doc, 0, doc.Length - 1);
             source = WebUtility.HtmlDecode(source);
             var document = new HtmlDocument();
@@ -59,10 +59,64 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
                         Added = dateAdded,
                         Cities = cities,
                         Logo = companyLogoLink,
-                        OfferAddress = offerLink
+                        OfferAddress = offerLink,
+                        WebsiteType = JobWebsiteTaskProviderType.TrojmiastoPl
                     }
                 );
             }
+
+            return result;
+        }
+
+        public async Task<JobOfferDetailsModel> GetJobOfferDetails(string offerAddress) {
+            var companyDescription = new StringBuilder();
+            var offerDescription = new StringBuilder();
+
+            var httpClient = new HttpClient();
+            var doc = await httpClient.GetByteArrayAsync(offerAddress).ConfigureAwait(false);
+            var source = Encoding.GetEncoding("utf-8").GetString(doc, 0, doc.Length - 1);
+            source = WebUtility.HtmlDecode(source);
+            var document = new HtmlDocument();
+            document.LoadHtml(source);
+
+            //var content = document.DocumentNode.Descendants(HtmlElementsHelper.Id)
+            //    .First(x => x.Attributes.Contains(HtmlElementsHelper.Id) && x.Attributes[HtmlElementsHelper.Id].Value.Equals("wcontent"));
+
+            var offer = document.DocumentNode.Descendants(HtmlElementsHelper.Div)
+                .Any(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("ogl-content")) 
+                ? document.DocumentNode.Descendants(HtmlElementsHelper.Div)
+                    .First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("ogl-content"))
+                : document.DocumentNode.Descendants(HtmlElementsHelper.Div)
+                    .First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("ogl-details"));
+
+            foreach (var descendant in offer.Descendants()) {
+                if (descendant.Name == HtmlElementsHelper.Emphasized || descendant.Name == HtmlElementsHelper.Strong || descendant.Name == HtmlElementsHelper.Text) {
+                    offerDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
+                }
+                else if (descendant.Name == HtmlElementsHelper.List) {
+                    foreach (var li in descendant.Descendants()) {
+                        offerDescription.Append($"\t-{li.InnerText}{Environment.NewLine}");
+                    }
+                }
+            }
+
+            //var company = offer.Descendants(HtmlElementsHelper.Div)
+            //    .First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("ogl-content"));
+
+
+            //foreach (var descendant in company.Descendants())
+            //{
+            //    if (descendant.Name == HtmlElementsHelper.Paragraph)
+            //    {
+            //        companyDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
+            //    }
+            //}
+
+            var result = new JobOfferDetailsModel {
+                OfferDescription = offerDescription.ToString(),
+                //CompanyDescription = companyDescription.ToString()
+            };
+
 
             return result;
         }

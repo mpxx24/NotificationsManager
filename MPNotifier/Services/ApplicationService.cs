@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Autofac.Features.Indexed;
 using JobOffersProvider.Common;
 using JobOffersProvider.Common.Models;
@@ -15,8 +14,11 @@ namespace MPNotifier.Services {
 
         private readonly IOffersService trojmiastPlOffersService;
 
-        public ApplicationService(IIndex<JobWebsiteTaskProviderType, IOffersService> index) {
+        private readonly IRepository<JobModel> repository;
+
+        public ApplicationService(IIndex<JobWebsiteTaskProviderType, IOffersService> index, IRepository<JobModel> repository) {
             this.iindex = index;
+            this.repository = repository;
             this.pracujPlOffersService = this.iindex[JobWebsiteTaskProviderType.PracujPl];
             this.trojmiastPlOffersService = this.iindex[JobWebsiteTaskProviderType.TrojmiastoPl];
         }
@@ -37,9 +39,9 @@ namespace MPNotifier.Services {
             return jobOffers;
         }
 
-
         private void InitlializePseudoRepositoryContainer(IEnumerable<JobModel> jobModels) {
-            OffersContainer.JobOfferModels = jobModels.AsQueryable();
+            var models = jobModels.AsQueryable();
+            this.repository.SetContext(models);
         }
     }
 }

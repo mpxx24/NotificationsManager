@@ -19,16 +19,7 @@ namespace MPNotifier.Views {
         }
 
         private void InitializeApplication() {
-            this.PrepareApplicationData();
             this.InitializeControls();
-        }
-
-        private void PrepareApplicationData() {
-            try {
-                IoC.Resolve<IApplicationService>().PrepareApplicationData();
-            } catch (Exception) {
-                //TODO: logger
-            }
         }
 
         private void ShowNotifications() {

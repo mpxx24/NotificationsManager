@@ -1,9 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using MPNotifier.Core;
 using MPNotifier.Models;
+using MPNotifier.Services.Contracts;
 
 namespace MPNotifier.Views {
     public sealed partial class Settings : Page {
@@ -15,6 +18,15 @@ namespace MPNotifier.Views {
             this.InitializeComponent();
             this.SetWindowSize();
             this.InitializeControls();
+            this.PrepareApplicationData();
+        }
+
+        private void PrepareApplicationData() {
+            try {
+                IoC.Resolve<IApplicationService>().PrepareApplicationData();
+            } catch (Exception) {
+                //TODO: logger
+            }
         }
 
         private void SetWindowSize() {

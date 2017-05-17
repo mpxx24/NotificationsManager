@@ -16,31 +16,32 @@ namespace MPNotifier.Views {
 
         public ApplicationResults() {
             this.InitializeComponent();
-            this.ViewModel = new ApplicationResultsViewModel();
-
-            this.InitializeApplication();
         }
+
         private void InitializeApplication() {
             this.PrepareApplicationData();
             this.InitializeControls();
         }
 
-        private void StartApplicationsLoop() {
-            timer = new Timer(x => this.ShowNotifications(), null, 1000 * 1, Timeout.Infinite);
-        }
-
         private void PrepareApplicationData() {
             try {
                 IoC.Resolve<IApplicationService>().PrepareApplicationData();
-            } catch (Exception ex) {
+            } catch (Exception) {
                 //TODO: logger
             }
         }
 
         private void ShowNotifications() {
-            IoC.Resolve<INotificationsLoader>().ShowToastNotification(5);
+            this.ShowToastNotifications();
+            this.StartApplicationsLoop();
+        }
 
-            timer.Change(1000 * 60 * 30, Timeout.Infinite);
+        private void ShowToastNotifications() {
+            IoC.Resolve<INotificationsLoader>().ShowToastNotification(5);
+        }
+
+        private void StartApplicationsLoop() {
+            timer = new Timer(x => this.ShowNotifications(), null, 1000 * 60 * 30, Timeout.Infinite);
         }
 
         private void InitializeControls() {
@@ -53,9 +54,14 @@ namespace MPNotifier.Views {
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e) {
-            var isAfterApplicationStart = e.Parameter != null && (bool) e.Parameter;
-            if (isAfterApplicationStart) {
-                this.StartApplicationsLoop();
+            var IsFromSettings = e.Parameter != null && (bool)e.Parameter;
+            this.ViewModel = new ApplicationResultsViewModel();
+
+            if (IsFromSettings) {
+                this.InitializeApplication();
+                this.ShowNotifications();
+            } else {
+                this.InitializeControls();
             }
         }
 

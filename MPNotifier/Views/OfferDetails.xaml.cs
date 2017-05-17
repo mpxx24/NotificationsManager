@@ -8,6 +8,8 @@ using MPNotifier.Services.Contracts;
 
 namespace MPNotifier.Views {
     public sealed partial class OfferDetails : Page {
+        private Guid offerId { get; set; }
+
         public OfferDetailsViewModel ViewModel { get; set; }
 
         public OfferDetails() {
@@ -16,15 +18,15 @@ namespace MPNotifier.Views {
 
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             if (e.Parameter != null) {
-                Guid offerId;
-                offerId = (Guid) e.Parameter;
-                this.ViewModel = IoC.Resolve<IOfferDetailsService>().GetOfferDetails(offerId);
+                this.offerId = (Guid) e.Parameter;
+                this.ViewModel = IoC.Resolve<IOfferDetailsService>().GetOfferDetails(this.offerId);
             }
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
             this.SplitView.IsPaneOpen = !this.SplitView.IsPaneOpen;
         }
+
         private void BackButton_OnClick(object sender, RoutedEventArgs e) {
             this.Frame.Navigate(typeof(ApplicationResults), false);
         }

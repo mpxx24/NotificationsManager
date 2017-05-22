@@ -4,7 +4,7 @@ using System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using MPNotifier.Core;
+using JobOffersProvider.Core;
 using MPNotifier.Models.ViewModels;
 using MPNotifier.Services.Contracts;
 
@@ -45,7 +45,7 @@ namespace MPNotifier.Views {
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e) {
-            var IsFromSettings = e.Parameter != null && (bool)e.Parameter;
+            var IsFromSettings = e.Parameter != null && (bool) e.Parameter;
             this.ViewModel = new ApplicationResultsViewModel();
 
             if (IsFromSettings) {

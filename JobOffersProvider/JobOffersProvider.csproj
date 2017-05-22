@@ -45,6 +45,8 @@
     <Compile Include="Common\Models\JobModel.cs" />
     <Compile Include="Common\Models\JobOfferDetailsModel.cs" />
     <Compile Include="Common\Models\JobWebsiteModel.cs" />
+    <Compile Include="Core\CommonModule.cs" />
+    <Compile Include="Core\IoC.cs" />
     <Compile Include="Core\IRepository.cs" />
     <Compile Include="Core\JobModelRepository.cs" />
     <Compile Include="Sites\PracujPl\PracujPlOffersService.cs" />

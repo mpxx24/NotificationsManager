@@ -97,8 +97,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\CommonModule.cs" />
-    <Compile Include="Core\IoC.cs" />
+    <Compile Include="Core\Modules\ApplicationModule.cs" />
     <Compile Include="INotificationsLoader.cs" />
     <Compile Include="Models\ViewModels\ApplicationResultsViewModel.cs" />
     <Compile Include="Models\ViewModels\JobOfferViewModel.cs" />

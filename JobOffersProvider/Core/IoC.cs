@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace MPNotifier.Core {
+namespace JobOffersProvider.Core {
     public static class IoC {
         private static IContainer container;
 

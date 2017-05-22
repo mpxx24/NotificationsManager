@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using MPNotifier.Core;
+using JobOffersProvider.Core;
 using MPNotifier.Models.ViewModels;
 using MPNotifier.Services.Contracts;
 

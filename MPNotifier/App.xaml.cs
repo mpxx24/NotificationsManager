@@ -5,7 +5,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Autofac;
+using JobOffersProvider.Core;
 using MPNotifier.Core;
+using MPNotifier.Core.Modules;
 using MPNotifier.Views;
 
 namespace MPNotifier {
@@ -18,7 +20,7 @@ namespace MPNotifier {
         ///     wykonywanego i jest logicznym odpowiednikiem metod main() lub WinMain().
         /// </summary>
         public App() {
-            IoC.Initialize(new Module[] { new CommonModule()});
+            IoC.Initialize(new Module[] {new CommonModule(), new ApplicationModule()});
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
         }
@@ -48,8 +50,9 @@ namespace MPNotifier {
             }
 
             if (e.PrelaunchActivated == false) {
-                if (rootFrame.Content == null)
+                if (rootFrame.Content == null) {
                     rootFrame.Navigate(typeof(Settings), e.Arguments);
+                }
                 // Upewnij się, ze bieżące okno jest aktywne
                 Window.Current.Activate();
             }

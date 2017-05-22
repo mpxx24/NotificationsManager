@@ -98,6 +98,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\Modules\ApplicationModule.cs" />
+    <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="INotificationsLoader.cs" />
     <Compile Include="Models\ViewModels\ApplicationResultsViewModel.cs" />
     <Compile Include="Models\ViewModels\JobOfferViewModel.cs" />

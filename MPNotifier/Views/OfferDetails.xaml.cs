@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using JobOffersProvider.Core;
+using MPNotifier.Helpers;
 using MPNotifier.Models.ViewModels;
 using MPNotifier.Services.Contracts;
 
@@ -28,7 +29,7 @@ namespace MPNotifier.Views {
         }
 
         private void BackButton_OnClick(object sender, RoutedEventArgs e) {
-            this.Frame.Navigate(typeof(ApplicationResults), false);
+            NavigationHelper.Navigate(typeof(ApplicationResults), false);
         }
     }
 }

@@ -78,10 +78,7 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
             source = WebUtility.HtmlDecode(source);
             var document = new HtmlDocument();
             document.LoadHtml(source);
-
-            //var content = document.DocumentNode.Descendants(HtmlElementsHelper.Id)
-            //    .First(x => x.Attributes.Contains(HtmlElementsHelper.Id) && x.Attributes[HtmlElementsHelper.Id].Value.Equals("wcontent"));
-
+            
             var offer = document.DocumentNode.Descendants(HtmlElementsHelper.Div)
                 .Any(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("ogl-content")) 
                 ? document.DocumentNode.Descendants(HtmlElementsHelper.Div)
@@ -94,23 +91,11 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
                     offerDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
                 }
                 else if (descendant.Name == HtmlElementsHelper.List) {
-                    foreach (var li in descendant.Descendants()) {
+                    foreach (var li in descendant.Descendants().Where(x => x.Name == HtmlElementsHelper.ListElement)) {
                         offerDescription.Append($"\t-{li.InnerText}{Environment.NewLine}");
                     }
                 }
             }
-
-            //var company = offer.Descendants(HtmlElementsHelper.Div)
-            //    .First(x => x.Attributes.Contains(HtmlElementsHelper.Class) && x.Attributes[HtmlElementsHelper.Class].Value.Equals("ogl-content"));
-
-
-            //foreach (var descendant in company.Descendants())
-            //{
-            //    if (descendant.Name == HtmlElementsHelper.Paragraph)
-            //    {
-            //        companyDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
-            //    }
-            //}
 
             var result = new JobOfferDetailsModel {
                 OfferDescription = offerDescription.ToString(),

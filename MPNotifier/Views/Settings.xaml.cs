@@ -5,6 +5,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using JobOffersProvider.Core;
+using MPNotifier.Helpers;
 using MPNotifier.Models;
 using MPNotifier.Services.Contracts;
 
@@ -57,7 +58,7 @@ namespace MPNotifier.Views {
             this.OfferComboValidation.Visibility = offerTypeOptionsModel == null ? Visibility.Visible : Visibility.Collapsed;
 
             if (timerOptionsModel != null && offerTypeOptionsModel != null) {
-                this.Frame.Navigate(typeof(ApplicationResults), true);
+                NavigationHelper.Navigate(typeof(ApplicationResults), true);
             }
         }
 

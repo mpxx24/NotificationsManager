@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using JobOffersProvider.Core;
+using MPNotifier.Helpers;
 using MPNotifier.Models.ViewModels;
 using MPNotifier.Services.Contracts;
 
@@ -62,7 +63,7 @@ namespace MPNotifier.Views {
         }
 
         private void ShowOfferDetails(Guid clickedItemId) {
-            this.Frame.Navigate(typeof(OfferDetails), clickedItemId);
+           NavigationHelper.Navigate(typeof(OfferDetails), clickedItemId);
         }
     }
 }

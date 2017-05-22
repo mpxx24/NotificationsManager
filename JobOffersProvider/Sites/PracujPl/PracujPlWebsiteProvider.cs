@@ -97,7 +97,7 @@ namespace JobOffersProvider.Sites.PracujPl {
                 if (descendant.Name == HtmlElementsHelper.Paragraph) {
                     offerDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
                 } else if (descendant.Name == HtmlElementsHelper.List) {
-                    foreach (var li in descendant.Descendants()) {
+                    foreach (var li in descendant.Descendants().Where(x => x.Name == HtmlElementsHelper.ListElement)) {
                         offerDescription.Append($"\t-{li.InnerText}{Environment.NewLine}");
                     }
                 }

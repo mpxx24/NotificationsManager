@@ -1,17 +1,17 @@
 ﻿namespace MPNotifier.Models {
     public class TimerOptionsModel {
-        public int Minutes { get; set; }
+        private int minutes { get; }
 
         public TimerOptionsModel(int minutes) {
-            this.Minutes = minutes;
+            this.minutes = minutes;
         }
 
         public string DisplayValue {
             get {
-                var hours = this.Minutes / 60;
-                var minutes = this.Minutes % 60;
+                var hours = this.minutes / 60;
+                var mins = this.minutes % 60;
 
-                return hours >= 1 ? $"{hours}h {minutes}min" : $"{minutes}min";
+                return hours >= 1 ? $"{hours}h {mins}min" : $"{mins}min";
             }
         }
     }

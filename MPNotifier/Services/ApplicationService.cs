@@ -24,6 +24,10 @@ namespace MPNotifier.Services {
         }
 
         public void PrepareApplicationData() {
+            if (this.repository.GetAll() != null) {
+                return;
+            }
+
             var offers = this.GetJobOffers();
             this.InitlializePseudoRepositoryContainer(offers);
         }

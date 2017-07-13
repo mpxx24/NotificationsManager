@@ -6,9 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Autofac;
 using JobOffersProvider.Core;
-using MPNotifier.Core;
 using MPNotifier.Core.Modules;
-using MPNotifier.Views;
 
 namespace MPNotifier {
     /// <summary>
@@ -51,7 +49,7 @@ namespace MPNotifier {
 
             if (e.PrelaunchActivated == false) {
                 if (rootFrame.Content == null) {
-                    rootFrame.Navigate(typeof(Settings), e.Arguments);
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // Upewnij się, ze bieżące okno jest aktywne
                 Window.Current.Activate();

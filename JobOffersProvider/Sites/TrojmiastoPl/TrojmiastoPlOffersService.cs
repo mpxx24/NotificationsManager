@@ -24,6 +24,7 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
             var jobOffers = this.jobWebsiteTask.GetJobOffers();
             return jobOffers.Result.ToList();
         }
+
         public JobOfferDetailsModel GetOfferDetails(Guid offerId) {
             var jobOffer = this.repository.Filter(x => x.Id == offerId).First();
             var jobModel = this.jobWebsiteTask.GetJobOfferDetails(jobOffer.OfferAddress);

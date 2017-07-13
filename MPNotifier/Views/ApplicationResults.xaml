@@ -7,43 +7,29 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Width="1000" Height="800">
 
-    <SplitView x:Name="SplitView" DisplayMode="CompactInline" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150" Width="1000" Height="800">
-        <SplitView.Pane>
-            <StackPanel Background="DarkGray">
-                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
-                        Width="50" Height="50" Background="Transparent" Foreground="WhiteSmoke" Click="HamburgerButton_Click"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="SettingsButton" FontFamily="Segoe MDL2 Assets" Content="&#59155;"
-                            Width="50" Height="50" Background="Transparent" Foreground="WhiteSmoke"/>
-                    <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="ContactAuthorButton" FontFamily="Segoe MDL2 Assets" Content="&#xE77B;"
-                            Width="50" Height="50" Background="Transparent" Foreground="WhiteSmoke"/>
-                    <TextBlock Text="Contact" FontSize="18" VerticalAlignment="Center" />
-                </StackPanel>
-            </StackPanel>
-        </SplitView.Pane>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <SplitView.Content>
-            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0, 0, 0, 0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Number of new offers: "></TextBlock>
-                    <TextBlock Text="{x:Bind ViewModel.NumberOfNewOffers}"></TextBlock>
-                </StackPanel>
-                <ListView x:Name="ResultsListView" ItemsSource="{x:Bind Path=ViewModel.Offers, Mode=OneWay}" Height="auto" Margin="0, 50, 0, 0" ItemClick="ResultsListView_OnItemClick" IsItemClickEnabled="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Logo}" Height="50" Width="50"></Image>
-                                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center"></TextBlock>
-                                </StackPanel>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Number of new offers: "></TextBlock>
+                <TextBlock Text="{x:Bind ViewModel.NumberOfNewOffers}"></TextBlock>
+            </StackPanel>
+            <ListView x:Name="ResultsListView" ItemsSource="{x:Bind Path=ViewModel.Offers, Mode=OneWay}" Height="auto" Margin="0, 50, 0, 0" ItemClick="ResultsListView_OnItemClick" IsItemClickEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Logo}" Height="50" Width="50"></Image>
+                                <TextBlock Text="{Binding Title}" VerticalAlignment="Center"></TextBlock>
                             </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
-        </SplitView.Content>
-    </SplitView>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </Grid>
 </Page>

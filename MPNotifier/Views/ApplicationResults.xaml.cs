@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using JobOffersProvider.Core;
 using MPNotifier.Helpers;
+using MPNotifier.Models;
 using MPNotifier.Models.ViewModels;
 using MPNotifier.Services.Contracts;
 
@@ -24,7 +24,7 @@ namespace MPNotifier.Views {
         }
 
         private void ShowNotifications() {
-            this.ShowToastNotifications();
+            //this.ShowToastNotifications();
             this.StartApplicationsLoop();
         }
 
@@ -40,16 +40,13 @@ namespace MPNotifier.Views {
             var allOffers = IoC.Resolve<IApplicationResultsService>().GetAllJobOfferViewModels();
             this.ViewModel.Offers = new ObservableCollection<JobOfferViewModel>(allOffers);
         }
-
-        private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
-            this.SplitView.IsPaneOpen = !this.SplitView.IsPaneOpen;
-        }
-
+        
         protected override void OnNavigatedTo(NavigationEventArgs e) {
-            var IsFromSettings = e.Parameter != null && (bool) e.Parameter;
+            var navigationModel = e.Parameter as NavigationModel;
             this.ViewModel = new ApplicationResultsViewModel();
+            var isFromSettings = navigationModel?.Parameter != null && (bool) navigationModel.Parameter;
 
-            if (IsFromSettings) {
+            if (isFromSettings) {
                 this.InitializeApplication();
                 this.ShowNotifications();
             } else {
@@ -63,7 +60,7 @@ namespace MPNotifier.Views {
         }
 
         private void ShowOfferDetails(Guid clickedItemId) {
-           NavigationHelper.Navigate(typeof(OfferDetails), clickedItemId);
+           NavigationHelper.Navigate(new NavigationModel{ViewType = typeof(OfferDetails), Parameter = clickedItemId});
         }
     }
 }

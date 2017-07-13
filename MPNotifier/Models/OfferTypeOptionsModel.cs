@@ -1,11 +1,11 @@
 ﻿namespace MPNotifier.Models {
     public class OfferTypeOptionsModel {
-        private string OfferType { get; }
+        private string offerType { get; }
 
-        public string DisplayValue => this.OfferType;
+        public string DisplayValue => this.offerType;
 
         public OfferTypeOptionsModel(string offerType) {
-            this.OfferType = offerType;
+            this.offerType = offerType;
         }
     }
 }

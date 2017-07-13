@@ -5,36 +5,21 @@
     xmlns:local="using:MPNotifier.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Width="1000" Height="800">
+    mc:Ignorable="d">
 
-    <SplitView x:Name="SplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150" Width="1000" Height="800">
-        <SplitView.Pane >
-            <StackPanel Background="DarkGray">
-                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
-                        Width="50" Height="50" Background="Transparent" Foreground="WhiteSmoke" Click="HamburgerButton_Click"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="SettingsButton" FontFamily="Segoe MDL2 Assets" Content="&#59155;"
-                            Width="50" Height="50" Background="Transparent" Foreground="WhiteSmoke"/>
-                    <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="ContactAuthorButton" FontFamily="Segoe MDL2 Assets" Content="&#xE77B;"
-                            Width="50" Height="50" Background="Transparent" Foreground="WhiteSmoke"/>
-                    <TextBlock Text="Contact" FontSize="18" VerticalAlignment="Center" />
-                </StackPanel>
-            </StackPanel>
-        </SplitView.Pane>
 
-        <SplitView.Content>
-            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,0,0">
-                <ComboBox x:Name="OfferTypeCombo" Header="Choose offer type" ItemsSource="{x:Bind availableOfferTypeOptions}" DisplayMemberPath="DisplayValue" Margin="230,340,0,0"/>
-                <ComboBox x:Name="TimerCombo" Header="How often do you want to check for offers" ItemsSource="{x:Bind availableTimeOptions}" DisplayMemberPath="DisplayValue" Margin="430,340,0,0"/>
-                <Button x:Name="StartApplicationButton" Click="StartApplicationButton_OnClick" Content="Start Application" Margin="610,440,0,0" Background="Black" Foreground="WhiteSmoke" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <TextBox x:Name="SearchTextBox" Header="Search" PlaceholderText="what to search for" Margin="180,100,450,510" Visibility="Visible" Height="60"/>
+            <ComboBox x:Name="SitesCombo" Header="Select websites to search from" ItemsSource="{x:Bind websiteOptions}" DisplayMemberPath="DisplayValue" Margin="520,225,0,0" Width="310"/>
+            <ComboBox x:Name="OfferTypeCombo" Header="Choose offer type" ItemsSource="{x:Bind availableOfferTypeOptions}" DisplayMemberPath="DisplayValue" Margin="180,225,0,0" Width="310"/>
+            <ComboBox x:Name="TimerCombo" Header="How often do you want to check for offers" ItemsSource="{x:Bind availableTimeOptions}" DisplayMemberPath="DisplayValue" Margin="180,350,0,0" Width="310"/>
+            <CheckBox x:Name="SendEmailCheckbox" Content="Send e-mail with notification" Margin="610,375,0,305"/>
+            <Button x:Name="StartApplicationButton" Click="StartApplicationButton_OnClick" Content="Start Application" Margin="700,475,0,0" Background="Black" Foreground="WhiteSmoke" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
 
-                <TextBlock x:Name="OfferComboValidation" Text="Please chose offer type" Margin="75,225,0,129" Visibility="Collapsed" Foreground="Red"></TextBlock>
-                <TextBlock x:Name="TimerComboValidation" Text="Please chose time interval before starting application" Margin="275,225,0,129" Visibility="Collapsed" Foreground="Red"></TextBlock>
-            </Grid>
-        </SplitView.Content>
-    </SplitView>
+            <TextBlock x:Name="OfferComboValidation" Text="Please chose offer type" Margin="180,290,790,406" Visibility="Collapsed" Foreground="Red" Width="310"/>
+            <TextBlock x:Name="TimerComboValidation" Text="Please chose time interval before starting application" Margin="181,415,789,257" Visibility="Collapsed" Foreground="Red" Width="310" TextWrapping="Wrap"/>
+        </Grid>
+    </StackPanel>
 </Page>
 

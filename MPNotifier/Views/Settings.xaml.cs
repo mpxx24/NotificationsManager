@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Windows.Foundation;
-using Windows.UI.ViewManagement;
+﻿using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using JobOffersProvider.Core;
 using MPNotifier.Helpers;
 using MPNotifier.Models;
-using MPNotifier.Services.Contracts;
 
 namespace MPNotifier.Views {
     public sealed partial class Settings : Page {
@@ -15,24 +10,11 @@ namespace MPNotifier.Views {
 
         private ObservableCollection<OfferTypeOptionsModel> availableOfferTypeOptions { get; set; }
 
+        private ObservableCollection<WebsiteOptionsModel> websiteOptions { get; set; }
+
         public Settings() {
             this.InitializeComponent();
-            this.SetWindowSize();
             this.InitializeControls();
-            this.PrepareApplicationData();
-        }
-
-        private void PrepareApplicationData() {
-            try {
-                IoC.Resolve<IApplicationService>().PrepareApplicationData();
-            } catch (Exception) {
-                //TODO: logger
-            }
-        }
-
-        private void SetWindowSize() {
-            ApplicationView.PreferredLaunchViewSize = new Size(1000, 600);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         private void InitializeControls() {
@@ -46,6 +28,11 @@ namespace MPNotifier.Views {
                 new OfferTypeOptionsModel("Jobs"),
                 new OfferTypeOptionsModel("Appartments")
             };
+
+            this.websiteOptions = new ObservableCollection<WebsiteOptionsModel> {
+                new WebsiteOptionsModel("Pracuj.pl"),
+                new WebsiteOptionsModel("Trojmiasto.pl")
+            };
         }
 
         private void StartApplicationButton_OnClick(object sender, RoutedEventArgs e) {
@@ -58,12 +45,8 @@ namespace MPNotifier.Views {
             this.OfferComboValidation.Visibility = offerTypeOptionsModel == null ? Visibility.Visible : Visibility.Collapsed;
 
             if (timerOptionsModel != null && offerTypeOptionsModel != null) {
-                NavigationHelper.Navigate(typeof(ApplicationResults), true);
+                NavigationHelper.Navigate(new NavigationModel {ViewType = typeof(ApplicationResults), Parameter = true});
             }
-        }
-
-        private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
-            this.SplitView.IsPaneOpen = !this.SplitView.IsPaneOpen;
         }
     }
 }

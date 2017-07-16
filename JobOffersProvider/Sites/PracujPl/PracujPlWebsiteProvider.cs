@@ -81,27 +81,37 @@ namespace JobOffersProvider.Sites.PracujPl {
             var content = document.DocumentNode.Descendants(HtmlElementsHelper.Div)
                 .First(x => x.Attributes.Contains(HtmlElementsHelper.Id) && x.Attributes[HtmlElementsHelper.Id].Value.Equals("main"));
 
-            var company = content.Descendants(HtmlElementsHelper.Div)
-                .First(x => x.Attributes.Contains(HtmlElementsHelper.Id) && x.Attributes[HtmlElementsHelper.Id].Value.Equals("company"));
+            Predicate<HtmlNode> companyPredicate = GetDescriptionPredicate("company");
 
-            foreach (var descendant in company.Descendants()) {
-                if (descendant.Name == HtmlElementsHelper.Paragraph) {
-                    companyDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
+            var doesCompanyDescriptionExist = content.Descendants(HtmlElementsHelper.Div).Any(companyPredicate.Invoke);
+
+            if (doesCompanyDescriptionExist) {
+                var company = content.Descendants(HtmlElementsHelper.Div).First(companyPredicate.Invoke);
+
+                foreach (var descendant in company.Descendants()) {
+                    if (descendant.Name == HtmlElementsHelper.Paragraph) {
+                        companyDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
+                    }
                 }
             }
 
-            var offer = content.Descendants(HtmlElementsHelper.Div)
-                .First(x => x.Attributes.Contains(HtmlElementsHelper.Id) && x.Attributes[HtmlElementsHelper.Id].Value.Equals("description"));
+            Predicate<HtmlNode> offerPredicate = GetDescriptionPredicate("description");
 
-            foreach (var descendant in offer.Descendants()) {
-                if (descendant.Name == HtmlElementsHelper.Paragraph) {
-                    offerDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
-                } else if (descendant.Name == HtmlElementsHelper.List) {
-                    foreach (var li in descendant.Descendants().Where(x => x.Name == HtmlElementsHelper.ListElement)) {
-                        offerDescription.Append($"\t-{li.InnerText}{Environment.NewLine}");
+            var doesNormalOfferDescriptionExist = content.Descendants(HtmlElementsHelper.Div).Any(offerPredicate.Invoke);
+
+            if (doesNormalOfferDescriptionExist) {
+                var offer = content.Descendants(HtmlElementsHelper.Div).First(offerPredicate.Invoke);
+
+                foreach (var descendant in offer.Descendants()) {
+                    if (descendant.Name == HtmlElementsHelper.Paragraph) {
+                        offerDescription.Append($"{descendant.InnerText}{Environment.NewLine}");
+                    } else if (descendant.Name == HtmlElementsHelper.List) {
+                        foreach (var li in descendant.Descendants().Where(x => x.Name == HtmlElementsHelper.ListElement)) {
+                            offerDescription.Append($"\t-{li.InnerText}{Environment.NewLine}");
+                        }
                     }
-                }
 
+                }
             }
 
             var result = new JobOfferDetailsModel {
@@ -151,6 +161,10 @@ namespace JobOffersProvider.Sites.PracujPl {
 
         private static string PrepareLogo(string logo) {
             return $"http:{logo}";
+        }
+
+        private static Predicate<HtmlNode> GetDescriptionPredicate(string id) {
+            return x => x.Attributes.Contains(HtmlElementsHelper.Id) && x.Attributes[HtmlElementsHelper.Id].Value.Equals(id);
         }
     }
 }

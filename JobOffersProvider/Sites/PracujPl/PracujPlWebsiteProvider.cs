@@ -59,7 +59,7 @@ namespace JobOffersProvider.Sites.PracujPl {
                         Cities = cities,
                         Logo = companyLogoLink,
                         OfferAddress = offerLink,
-                        WebsiteType = JobWebsiteTaskProviderType.PracujPl
+                        WebsiteType = WebsiteType.PracujPl
                     }
                 );
             }

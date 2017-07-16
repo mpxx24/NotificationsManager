@@ -8,16 +8,16 @@ using JobOffersProvider.Core;
 
 namespace JobOffersProvider.Sites.PracujPl {
     public class PracujPlOffersService : IOffersService {
-        private readonly IIndex<JobWebsiteTaskProviderType, IJobWebsiteTask> iJobWebsiteTaskIndex;
+        private readonly IIndex<WebsiteType, IJobWebsiteTask> iJobWebsiteTaskIndex;
 
         private readonly IJobWebsiteTask jobWebsiteTask;
 
         private readonly IRepository<JobModel> repository;
 
-        public PracujPlOffersService(IIndex<JobWebsiteTaskProviderType, IJobWebsiteTask> index, IRepository<JobModel> repository) {
+        public PracujPlOffersService(IIndex<WebsiteType, IJobWebsiteTask> index, IRepository<JobModel> repository) {
             this.iJobWebsiteTaskIndex = index;
             this.repository = repository;
-            this.jobWebsiteTask = this.iJobWebsiteTaskIndex[JobWebsiteTaskProviderType.PracujPl];
+            this.jobWebsiteTask = this.iJobWebsiteTaskIndex[WebsiteType.PracujPl];
         }
 
         public IEnumerable<JobModel> GetOffers() {
@@ -26,7 +26,7 @@ namespace JobOffersProvider.Sites.PracujPl {
         }
 
         public JobOfferDetailsModel GetOfferDetails(Guid offerId) {
-            var jobOffer= this.repository.Filter(x => x.Id == offerId).First();
+            var jobOffer = this.repository.Filter(x => x.Id == offerId).First();
             var jobModel = this.jobWebsiteTask.GetJobOfferDetails(jobOffer.OfferAddress);
 
             return new JobOfferDetailsModel {

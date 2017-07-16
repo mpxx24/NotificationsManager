@@ -41,10 +41,12 @@
     <Compile Include="Common\HtmlElementsHelper.cs" />
     <Compile Include="Common\IJobWebsiteTask.cs" />
     <Compile Include="Common\IOffersService.cs" />
-    <Compile Include="Common\JobWebsiteTaskProviderType.cs" />
+    <Compile Include="Common\TimeIntervalType.cs" />
+    <Compile Include="Common\WebsiteType.cs" />
     <Compile Include="Common\Models\JobModel.cs" />
     <Compile Include="Common\Models\JobOfferDetailsModel.cs" />
     <Compile Include="Common\Models\JobWebsiteModel.cs" />
+    <Compile Include="Common\OfferType.cs" />
     <Compile Include="Core\CommonModule.cs" />
     <Compile Include="Core\IoC.cs" />
     <Compile Include="Core\IRepository.cs" />

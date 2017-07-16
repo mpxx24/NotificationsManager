@@ -8,16 +8,16 @@ using JobOffersProvider.Core;
 
 namespace JobOffersProvider.Sites.TrojmiastoPl {
     public class TrojmiastoPlOffersService : IOffersService {
-        private readonly IIndex<JobWebsiteTaskProviderType, IJobWebsiteTask> iJobWebsiteTaskIndex;
+        private readonly IIndex<WebsiteType, IJobWebsiteTask> iJobWebsiteTaskIndex;
 
         private readonly IJobWebsiteTask jobWebsiteTask;
 
         private readonly IRepository<JobModel> repository;
 
-        public TrojmiastoPlOffersService(IIndex<JobWebsiteTaskProviderType, IJobWebsiteTask> index, IRepository<JobModel> repository) {
+        public TrojmiastoPlOffersService(IIndex<WebsiteType, IJobWebsiteTask> index, IRepository<JobModel> repository) {
             this.iJobWebsiteTaskIndex = index;
             this.repository = repository;
-            this.jobWebsiteTask = this.iJobWebsiteTaskIndex[JobWebsiteTaskProviderType.TrojmiastoPl];
+            this.jobWebsiteTask = this.iJobWebsiteTaskIndex[WebsiteType.TrojmiastoPl];
         }
 
         public IEnumerable<JobModel> GetOffers() {

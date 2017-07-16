@@ -8,7 +8,7 @@ using MPNotifier.Services.Contracts;
 
 namespace MPNotifier.Services {
     public class ApplicationService : IApplicationService {
-        private readonly IIndex<JobWebsiteTaskProviderType, IOffersService> iindex;
+        private readonly IIndex<WebsiteType, IOffersService> iindex;
 
         private readonly IOffersService pracujPlOffersService;
 
@@ -16,11 +16,11 @@ namespace MPNotifier.Services {
 
         private readonly IRepository<JobModel> repository;
 
-        public ApplicationService(IIndex<JobWebsiteTaskProviderType, IOffersService> index, IRepository<JobModel> repository) {
+        public ApplicationService(IIndex<WebsiteType, IOffersService> index, IRepository<JobModel> repository) {
             this.iindex = index;
             this.repository = repository;
-            this.pracujPlOffersService = this.iindex[JobWebsiteTaskProviderType.PracujPl];
-            this.trojmiastPlOffersService = this.iindex[JobWebsiteTaskProviderType.TrojmiastoPl];
+            this.pracujPlOffersService = this.iindex[WebsiteType.PracujPl];
+            this.trojmiastPlOffersService = this.iindex[WebsiteType.TrojmiastoPl];
         }
 
         public void PrepareApplicationData() {

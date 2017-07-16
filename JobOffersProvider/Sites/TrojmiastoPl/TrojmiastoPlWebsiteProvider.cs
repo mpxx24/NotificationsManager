@@ -60,7 +60,7 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
                         Cities = cities,
                         Logo = companyLogoLink,
                         OfferAddress = offerLink,
-                        WebsiteType = JobWebsiteTaskProviderType.TrojmiastoPl
+                        WebsiteType = WebsiteType.TrojmiastoPl
                     }
                 );
             }

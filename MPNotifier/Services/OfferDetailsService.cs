@@ -9,7 +9,7 @@ using MPNotifier.Services.Contracts;
 
 namespace MPNotifier.Services {
     public class OfferDetailsService : IOfferDetailsService {
-        private readonly IIndex<JobWebsiteTaskProviderType, IOffersService> iindex;
+        private readonly IIndex<WebsiteType, IOffersService> iindex;
 
         private readonly IOffersService pracujPlOffersService;
 
@@ -17,17 +17,17 @@ namespace MPNotifier.Services {
 
         private readonly IOffersService trojmiastPlOffersService;
 
-        public OfferDetailsService(IIndex<JobWebsiteTaskProviderType, IOffersService> index, IRepository<JobModel> repository) {
+        public OfferDetailsService(IIndex<WebsiteType, IOffersService> index, IRepository<JobModel> repository) {
             this.iindex = index;
             this.repository = repository;
-            this.pracujPlOffersService = this.iindex[JobWebsiteTaskProviderType.PracujPl];
-            this.trojmiastPlOffersService = this.iindex[JobWebsiteTaskProviderType.TrojmiastoPl];
+            this.pracujPlOffersService = this.iindex[WebsiteType.PracujPl];
+            this.trojmiastPlOffersService = this.iindex[WebsiteType.TrojmiastoPl];
         }
 
         public OfferDetailsViewModel GetOfferDetails(Guid offerId) {
             var websiteType = this.repository.Filter(x => x.Id == offerId).First().WebsiteType;
 
-            var details = websiteType == JobWebsiteTaskProviderType.PracujPl
+            var details = websiteType == WebsiteType.PracujPl
                 ? this.pracujPlOffersService.GetOfferDetails(offerId)
                 : this.trojmiastPlOffersService.GetOfferDetails(offerId);
 

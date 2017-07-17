@@ -32,7 +32,7 @@ namespace MPNotifier {
 
         private void LeftSideMenu_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (this.Results.IsSelected) {
-                this.CurrentFrame.Navigate(typeof(ApplicationResults), new NavigationModel { Parameter = true });
+                this.CurrentFrame.Navigate(typeof(ApplicationResults), new NavigationModel { Parameter = null });
             } else if (this.Settings.IsSelected) {
                 this.CurrentFrame.Navigate(typeof(Settings));
             }

@@ -39,11 +39,11 @@ namespace MPNotifier.Views {
         private void StartApplicationButton_OnClick(object sender, RoutedEventArgs e) {
             var settings = this.RetrieveSettings();
 
-            this.TimerComboValidation.Visibility = settings.IntervalType == TimeIntervalType.Undefined ? Visibility.Visible : Visibility.Collapsed;
-            this.OfferComboValidation.Visibility = settings.OfferType == OfferType.Undefined ? Visibility.Visible : Visibility.Collapsed;
+            //this.TimerComboValidation.Visibility = settings.IntervalType == TimeIntervalType.Undefined ? Visibility.Visible : Visibility.Collapsed;
+            //this.OfferComboValidation.Visibility = settings.OfferType == OfferType.Undefined ? Visibility.Visible : Visibility.Collapsed;
 
             if (settings.IntervalType != TimeIntervalType.Undefined && settings.OfferType != OfferType.Undefined) {
-                NavigationHelper.Navigate(new NavigationModel {ViewType = typeof(ApplicationResults), Parameter = true});
+                NavigationHelper.Navigate(new NavigationModel {ViewType = typeof(ApplicationResults), Parameter = settings});
             }
         }
 

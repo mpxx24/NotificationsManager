@@ -15,13 +15,12 @@
         
         <StackPanel Orientation="Vertical">
             <HyperlinkButton Name="BackButton" Click="BackButton_OnClick">BACK</HyperlinkButton>
-            <TextBlock Text="offer details"></TextBlock>
             <StackPanel Orientation="Horizontal">
                 <Image Source="{x:Bind ViewModel.Logo}" Width="50" Height="50"></Image>
                 <TextBlock Text="{x:Bind ViewModel.Company}" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
             <TextBlock Text="{x:Bind ViewModel.Title}"></TextBlock>
-            <ScrollViewer VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled" Height="350">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled" Height="616">
                 <TextBlock Text="{x:Bind ViewModel.Description}" TextWrapping="Wrap" HorizontalAlignment="Stretch"></TextBlock>
             </ScrollViewer>
         </StackPanel>

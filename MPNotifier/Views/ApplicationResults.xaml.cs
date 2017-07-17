@@ -44,9 +44,10 @@ namespace MPNotifier.Views {
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             var navigationModel = e.Parameter as NavigationModel;
             this.ViewModel = new ApplicationResultsViewModel();
-            var isFromSettings = navigationModel?.Parameter != null && (bool) navigationModel.Parameter;
 
-            if (isFromSettings) {
+            var settings = (ApplicationSettingsModel) navigationModel?.Parameter;
+
+            if (settings != null) {
                 this.InitializeApplication();
                 this.ShowNotifications();
             } else {

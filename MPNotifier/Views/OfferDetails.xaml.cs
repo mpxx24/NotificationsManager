@@ -29,7 +29,7 @@ namespace MPNotifier.Views {
         }
 
         private void BackButton_OnClick(object sender, RoutedEventArgs e) {
-            NavigationHelper.Navigate(new NavigationModel{ViewType = typeof(ApplicationResults), Parameter = false});
+            NavigationHelper.Navigate(new NavigationModel{ViewType = typeof(ApplicationResults), Parameter = null});
         }
     }
 }

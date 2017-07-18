@@ -4,7 +4,7 @@ using JobOffersProvider.Common.Models;
 
 namespace JobOffersProvider.Common {
     public interface IJobWebsiteTask {
-        Task<IEnumerable<JobModel>> GetJobOffers();
+        Task<IEnumerable<JobModel>> GetJobOffers(string searchText);
 
         Task<JobOfferDetailsModel> GetJobOfferDetails(string offerAddress);
     }

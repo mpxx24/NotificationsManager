@@ -11,13 +11,13 @@ using JobOffersProvider.Common.Models;
 
 namespace JobOffersProvider.Sites.TrojmiastoPl {
     public class TrojmiastoPlWebsiteProvider : IJobWebsiteTask {
-        private static string searchUrl => $"http://ogloszenia.trojmiasto.pl/praca/s,.net,slb,4,o0,1.html";
         private static string defaultLogoAddress => "https://cdn2.iconfinder.com/data/icons/line-weather/130/No_Data-128.png";
 
-        public async Task<IEnumerable<JobModel>> GetJobOffers() {
+        public async Task<IEnumerable<JobModel>> GetJobOffers(string searchText) {
             var result = new List<JobModel>();
 
             var httpClient = new HttpClient();
+            var searchUrl = this.GetSearchUrl(searchText);
             var doc = await httpClient.GetByteArrayAsync(searchUrl).ConfigureAwait(false);
             var source = Encoding.GetEncoding("utf-8").GetString(doc, 0, doc.Length - 1);
             source = WebUtility.HtmlDecode(source);
@@ -104,6 +104,10 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
 
 
             return result;
+        }
+
+        private string GetSearchUrl(string searchtText) {
+            return $"http://ogloszenia.trojmiasto.pl/praca/s,.{Uri.EscapeDataString(searchtText)},slb,4,o0,1.html";
         }
 
         private static DateTime PrepareDateAdded(string dateAdded) {

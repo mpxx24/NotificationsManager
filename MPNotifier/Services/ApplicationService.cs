@@ -4,6 +4,7 @@ using Autofac.Features.Indexed;
 using JobOffersProvider.Common;
 using JobOffersProvider.Common.Models;
 using JobOffersProvider.Core;
+using MPNotifier.Models;
 using MPNotifier.Services.Contracts;
 
 namespace MPNotifier.Services {
@@ -23,22 +24,31 @@ namespace MPNotifier.Services {
             this.trojmiastPlOffersService = this.iindex[WebsiteType.TrojmiastoPl];
         }
 
-        public void PrepareApplicationData() {
+        public void PrepareApplicationData(ApplicationSettingsModel settings) {
             if (this.repository.GetAll() != null) {
                 return;
             }
 
-            var offers = this.GetJobOffers();
+            var offers = this.GetJobOffers(settings);
             this.InitlializePseudoRepositoryContainer(offers);
         }
 
-        private IEnumerable<JobModel> GetJobOffers() {
+        private IEnumerable<JobModel> GetJobOffers(ApplicationSettingsModel settings) {
             var jobOffers = new List<JobModel>();
+            var searchModel = this.ConvertApplicationSettingsModelToSearchSettingsModel(settings);
 
-            var pracujPlJobOffers = this.pracujPlOffersService.GetOffers();
-            var trojmiastoPlJobOffers = this.trojmiastPlOffersService.GetOffers();
-            jobOffers.AddRange(pracujPlJobOffers);
-            jobOffers.AddRange(trojmiastoPlJobOffers);
+            switch (searchModel.Website) {
+                case WebsiteType.PracujPl:
+                    var pracujPlJobOffers = this.pracujPlOffersService.GetOffers(searchModel.Text);
+                    jobOffers.AddRange(pracujPlJobOffers);
+                    break;
+                case WebsiteType.TrojmiastoPl:
+                    var trojmiastoPlJobOffers = this.trojmiastPlOffersService.GetOffers(searchModel.Text);
+                    jobOffers.AddRange(trojmiastoPlJobOffers);
+                    break;
+                case WebsiteType.Undefined:
+                    break;
+            }
 
             return jobOffers;
         }
@@ -46,6 +56,14 @@ namespace MPNotifier.Services {
         private void InitlializePseudoRepositoryContainer(IEnumerable<JobModel> jobModels) {
             var models = jobModels.AsQueryable();
             this.repository.SetContext(models);
+        }
+
+        private SearchSettingsModel ConvertApplicationSettingsModelToSearchSettingsModel(ApplicationSettingsModel model) {
+            return new SearchSettingsModel {
+                Text = model.SearchText,
+                OfferType = model.OfferType,
+                Website = model.Website
+            };
         }
     }
 }

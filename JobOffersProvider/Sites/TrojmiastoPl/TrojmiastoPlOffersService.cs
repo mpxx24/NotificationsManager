@@ -20,8 +20,8 @@ namespace JobOffersProvider.Sites.TrojmiastoPl {
             this.jobWebsiteTask = this.iJobWebsiteTaskIndex[WebsiteType.TrojmiastoPl];
         }
 
-        public IEnumerable<JobModel> GetOffers() {
-            var jobOffers = this.jobWebsiteTask.GetJobOffers();
+        public IEnumerable<JobModel> GetOffers(string searchText) {
+            var jobOffers = this.jobWebsiteTask.GetJobOffers(searchText);
             return jobOffers.Result.ToList();
         }
 

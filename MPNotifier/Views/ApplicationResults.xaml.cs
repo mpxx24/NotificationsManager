@@ -13,14 +13,23 @@ namespace MPNotifier.Views {
     public sealed partial class ApplicationResults : Page {
         private static Timer timer;
 
+        private ApplicationSettingsModel settings { get; set; }
+
         public ApplicationResultsViewModel ViewModel { get; set; }
 
-        public ApplicationResults() {
-            this.InitializeComponent();
+        private void PrepareApplicationData() {
+            try {
+                IoC.Resolve<IApplicationService>().PrepareApplicationData(this.settings);
+            } catch (Exception) {
+                //TODO: logger
+            }
         }
 
         private void InitializeApplication() {
+            this.PrepareApplicationData();
+            
             this.InitializeControls();
+            this.InitializeComponent();
         }
 
         private void ShowNotifications() {
@@ -45,13 +54,14 @@ namespace MPNotifier.Views {
             var navigationModel = e.Parameter as NavigationModel;
             this.ViewModel = new ApplicationResultsViewModel();
 
-            var settings = (ApplicationSettingsModel) navigationModel?.Parameter;
+            this.settings = (ApplicationSettingsModel) navigationModel?.Parameter;
 
-            if (settings != null) {
+            if (this.settings != null) {
                 this.InitializeApplication();
                 this.ShowNotifications();
             } else {
                 this.InitializeControls();
+                this.InitializeComponent();
             }
         }
 

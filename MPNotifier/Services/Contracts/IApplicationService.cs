@@ -1,5 +1,7 @@
-﻿namespace MPNotifier.Services.Contracts {
+﻿using MPNotifier.Models;
+
+namespace MPNotifier.Services.Contracts {
     public interface IApplicationService {
-        void PrepareApplicationData();
+        void PrepareApplicationData(ApplicationSettingsModel settings);
     }
 }

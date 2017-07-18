@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using HtmlAgilityPack;
 using JobOffersProvider.Common;
 using JobOffersProvider.Common.Models;
@@ -12,13 +13,14 @@ using JobOffersProvider.Common.Models;
 namespace JobOffersProvider.Sites.PracujPl {
     public class PracujPlWebsiteProvider : IJobWebsiteTask {
         private static string pracujPlAddress => "https://www.pracuj.pl/";
-        private static string searchUrl => $"{pracujPlAddress}/praca/.NET;kw/Gda%C5%84sk-x44-%20Gdynia-x44-%20Sopot;wp";
+        //private static string searchUrl => $"{pracujPlAddress}/praca/.NET;kw/Gda%C5%84sk-x44-%20Gdynia-x44-%20Sopot;wp";
         private static string defaultLogoAddress => "https://cdn2.iconfinder.com/data/icons/line-weather/130/No_Data-128.png";
 
-        public async Task<IEnumerable<JobModel>> GetJobOffers() {
+        public async Task<IEnumerable<JobModel>> GetJobOffers(string searchText) {
             var result = new List<JobModel>();
 
             var httpClient = new HttpClient();
+            var searchUrl = this.GetSearchUrl(searchText);
             var doc = await httpClient.GetByteArrayAsync(searchUrl).ConfigureAwait(false);
             var source = Encoding.GetEncoding("utf-8").GetString(doc, 0, doc.Length - 1);
             source = WebUtility.HtmlDecode(source);
@@ -78,10 +80,22 @@ namespace JobOffersProvider.Sites.PracujPl {
             var document = new HtmlDocument();
             document.LoadHtml(source);
 
-            var content = document.DocumentNode.Descendants(HtmlElementsHelper.Div)
-                .First(x => x.Attributes.Contains(HtmlElementsHelper.Id) && x.Attributes[HtmlElementsHelper.Id].Value.Equals("main"));
+            var mainPredicate = GetIdExistPredicate("main");
 
-            Predicate<HtmlNode> companyPredicate = GetDescriptionPredicate("company");
+            var contentExist = document.DocumentNode.Descendants(HtmlElementsHelper.Div)
+                .Any(mainPredicate.Invoke);
+
+            if (!contentExist) {
+                return new JobOfferDetailsModel {
+                    CompanyDescription = string.Empty,
+                    OfferDescription = "Failed to retrieve offer content"
+                };
+            }
+
+            var content = document.DocumentNode.Descendants(HtmlElementsHelper.Div)
+                .First(mainPredicate.Invoke);
+
+            Predicate<HtmlNode> companyPredicate = GetIdExistPredicate("company");
 
             var doesCompanyDescriptionExist = content.Descendants(HtmlElementsHelper.Div).Any(companyPredicate.Invoke);
 
@@ -95,7 +109,7 @@ namespace JobOffersProvider.Sites.PracujPl {
                 }
             }
 
-            Predicate<HtmlNode> offerPredicate = GetDescriptionPredicate("description");
+            Predicate<HtmlNode> offerPredicate = GetIdExistPredicate("description");
 
             var doesNormalOfferDescriptionExist = content.Descendants(HtmlElementsHelper.Div).Any(offerPredicate.Invoke);
 
@@ -121,6 +135,10 @@ namespace JobOffersProvider.Sites.PracujPl {
 
 
             return result;
+        }
+
+        private string GetSearchUrl(string searchText) {
+            return $"{pracujPlAddress}/praca/{Uri.EscapeDataString(searchText)};kw/Gda%C5%84sk-x44-%20Gdynia-x44-%20Sopot;wp";
         }
 
         private static string PrepareOfferLink(string link) {
@@ -163,7 +181,7 @@ namespace JobOffersProvider.Sites.PracujPl {
             return $"http:{logo}";
         }
 
-        private static Predicate<HtmlNode> GetDescriptionPredicate(string id) {
+        private static Predicate<HtmlNode> GetIdExistPredicate(string id) {
             return x => x.Attributes.Contains(HtmlElementsHelper.Id) && x.Attributes[HtmlElementsHelper.Id].Value.Equals(id);
         }
     }

@@ -20,8 +20,8 @@ namespace JobOffersProvider.Sites.PracujPl {
             this.jobWebsiteTask = this.iJobWebsiteTaskIndex[WebsiteType.PracujPl];
         }
 
-        public IEnumerable<JobModel> GetOffers() {
-            var jobOffers = this.jobWebsiteTask.GetJobOffers();
+        public IEnumerable<JobModel> GetOffers(string searchText) {
+            var jobOffers = this.jobWebsiteTask.GetJobOffers(searchText);
             return jobOffers.Result.ToList();
         }
 

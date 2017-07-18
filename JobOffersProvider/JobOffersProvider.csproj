@@ -41,6 +41,7 @@
     <Compile Include="Common\HtmlElementsHelper.cs" />
     <Compile Include="Common\IJobWebsiteTask.cs" />
     <Compile Include="Common\IOffersService.cs" />
+    <Compile Include="Common\Models\SearchSettingsModel.cs" />
     <Compile Include="Common\TimeIntervalType.cs" />
     <Compile Include="Common\WebsiteType.cs" />
     <Compile Include="Common\Models\JobModel.cs" />
@@ -64,6 +65,9 @@
     </Reference>
     <Reference Include="System.Net.Requests">
       <HintPath>..\..\..\..\..\.nuget\packages\System.Net.Requests\4.0.11\ref\netcore50\System.Net.Requests.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Web.dll</HintPath>
     </Reference>
     <Reference Include="Windows.Foundation.UniversalApiContract">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\Windows.Foundation.UniversalApiContract\3.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
